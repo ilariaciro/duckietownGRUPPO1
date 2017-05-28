@@ -218,6 +218,7 @@ void Operations:: laneDetect(string path_video, string name_video){
 			inRange(greyImg, 200, 255,white_mask);
 			bitwise_or(yellow_mask,white_mask,mask);
 			bitwise_and(greyImg,mask,mask);
+
 			GaussianBlur(mask,mask,Size(5,5),10,10,2);
 			Canny(mask,mask,50,150,3);
 
@@ -229,18 +230,23 @@ void Operations:: laneDetect(string path_video, string name_video){
 			 * SOLO LA PARTE BASSA
 			 */
 
-			// HOUGH SPACE //
-			vector<float> lines;
-			//HoughLinesP(mask, lines,1,CV_PI/180,100);
-			//lines=HoughLinesP(mask, 1, CV_PI/2, 2, None, 30, 1);
-//
-//			cout<<"HOUGH SPACE"<<endl;
-//			for(int i=0;i<lines.size();i++)
-//				cout<<lines.at(i)<<endl;
+			/*HoughLinesP PARAMETRI:
+			 il 5o parametro e' la sensibilità: piu e' basso piu facilemte trova linee (parametro standard 50)
+			 il 6o parametro è il numerominimo di punti che devono costituore una linea, scarta i falsi positivi(?) (parametro standard 50)
+			 il 7o parametro e' il gap: distanza max tra due punti che possono ancora considerati appartenenti linea (evita linee 'spezzate') (parametro standard 10)
+			 */
+			vector<Vec4i> lines;
+			HoughLinesP(mask, lines,1,CV_PI/180,50,50,10);
 
-			// VISUALIZZAZIONE//
+			for( size_t i = 0; i < lines.size(); i++ ){
+				Vec4i l = lines[i];
+				line( img, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(0,0,255), 3, CV_AA);
+			}
+
 			namedWindow( "Result", CV_WINDOW_AUTOSIZE );
 			imshow("Result", mask);
+			namedWindow( "Hough", CV_WINDOW_AUTOSIZE );
+			imshow("Hough", img);
 			waitKey(25);
 		}
 	}
