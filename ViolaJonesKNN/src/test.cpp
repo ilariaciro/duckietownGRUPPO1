@@ -11,7 +11,7 @@ int main(int argc, char* argv[]) {
 	string video_path = "Video/";
 	string video_name = "1.h264";
 	op.laneDetect(video_path,video_name);
-
+	cout<<"PRIMO COMMIT CIRO"<<endl;
 /*
 	FeaturesExtraction extractor;
 
