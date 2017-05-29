@@ -237,6 +237,7 @@ void Operations:: laneDetect(string path_video, string name_video){
 			 */
 			vector<Vec4i> lines;
 			HoughLinesP(mask, lines,1,CV_PI/180,50,50,10);
+			//HoughLinesP(mask, lines,1,CV_PI/180,10,10,10); CIRO
 
 			for( size_t i = 0; i < lines.size(); i++ ){
 				Vec4i l = lines[i];
