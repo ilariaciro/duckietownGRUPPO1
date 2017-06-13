@@ -10,7 +10,7 @@ int main(int argc, char* argv[]) {
 	Operations op;
 	string video_path = "Video/";
 	string video_name = "1.h264";
-	cout<<"Ciao"<<endl;
+	cout<<"CIAO iniziamo la lane detection :D"<<endl;
 	op.laneDetect(video_path,video_name);
 /*
 	FeaturesExtraction extractor;
